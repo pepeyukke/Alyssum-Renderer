@@ -20,13 +20,13 @@ import java.lang.management.ManagementFactory;
 
 @Mod(modid = CeleritasVintage.MODID, useMetadata = true)
 public class CeleritasVintage {
-    public static final String MODID = "celeritas";
-    private static final Logger LOGGER = LogManager.getLogger("Celeritas");
+    public static final String MODID = "alyssum renderer";
+    private static final Logger LOGGER = LogManager.getLogger("Alyssum Renderer");
     public static String VERSION;
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        LOGGER.info("Hello from Forge!");
+        LOGGER.info("pepeyukke is Online!");
         GLRenderDevice.VANILLA_STATE_RESETTER = () -> {
             OpenGlHelper.glBindBuffer(OpenGlHelper.GL_ARRAY_BUFFER, 0);
         };
@@ -42,7 +42,7 @@ public class CeleritasVintage {
 
         var strings = event.getRight();
         strings.add("");
-        strings.add("%s%s Renderer (%s)".formatted(ChatFormatting.GREEN, "Celeritas", VERSION));
+        strings.add("%s%s Renderer (%s)".formatted(ChatFormatting.GREEN, "Alyssum", VERSION));
 
         // Embeddium: Show a lot less with reduced debug info
         if (Minecraft.getMinecraft().isReducedDebug()) {

@@ -10,7 +10,7 @@ plugins {
 }
 
 project.version = tau.versioning.version(rootProject.properties["project_base_version"].toString(), rootProject.properties["release_channel"])
-println("Celeritas: ${tau.versioning.version}")
+println("Alyssum Renderer: ${tau.versioning.version}")
 
 //project(":forge1710")
 
