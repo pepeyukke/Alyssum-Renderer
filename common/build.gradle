@@ -1,0 +1,68 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = "org.embeddedt.celeritas"
+version = rootProject.version
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def lwjglVersion = "3.3.1"
+    compileOnly "org.lwjgl:lwjgl:${lwjglVersion}"
+    compileOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
+    compileOnly "org.joml:joml:1.10.5"
+    compileOnly "it.unimi.dsi:fastutil:7.1.0"
+    compileOnly "org.apache.logging.log4j:log4j-api:2.0-beta9"
+    compileOnly "org.jetbrains:annotations:24.1.0"
+    compileOnly("org.projectlombok:lombok:1.18.30")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
+    compileOnly("com.google.guava:guava:31.1-jre")
+    compileOnly("org.ow2.asm:asm:9.6")
+    compileOnly("org.ow2.asm:asm-tree:9.6")
+    compileOnly("org.ow2.asm:asm-util:9.6")
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'celeritas-common'
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = "taumcRepository"
+            url = uri("https://maven.taumc.org/releases")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_SECRET")
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    from(rootProject.file("COPYING"))
+    from(rootProject.file("COPYING.LESSER"))
+}
+
+jar {
+    manifest {
+        attributes([
+                "Lwjgl3ify-Aware": "true"
+        ])
+    }
+}
